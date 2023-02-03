@@ -72,18 +72,14 @@ const TextItem = (
   },
 ) => {
   const { disabled, file, locale, onRemove } = props
-
   const Icon = getIconType(file)
-
   const showUploadList = isObject(props.showUploadList)
     ? (props.showUploadList as CustomIconType)
     : {}
-
   const imageUrl = getFileURL(file)
   const actionIcons = isObject(showUploadList)
     ? (showUploadList as CustomIconType)
     : {}
-
   const fileName = isFunction(showUploadList.fileName)
     ? showUploadList.fileName(file)
     : file.name || (file.originFile && file.originFile.name)

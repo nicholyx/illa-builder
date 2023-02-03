@@ -14,7 +14,7 @@ import {
   ConfigProviderContext,
   ConfigProviderProps,
 } from "@illa-design/config-provider"
-import { getFiles, loopDirectory } from "./utils"
+import { getAcceptedFiles, loopDirectory } from "./utils"
 import {
   dragContentContainerStyle,
   dragIconStyle,
@@ -110,7 +110,7 @@ const TriggerNode = (props: PropsWithChildren<TriggerProps>) => {
         accept,
       )
     } else {
-      const files = getFiles(e.dataTransfer.files, accept)
+      const files = getAcceptedFiles(e.dataTransfer.files, accept)
       onDragFiles &&
         onDragFiles((multiple ? files : files?.slice(0, 1) || []) as File[])
     }
