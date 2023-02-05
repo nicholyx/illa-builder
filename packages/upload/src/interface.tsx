@@ -157,7 +157,7 @@ export interface UploaderProps extends UploadProps {
   onFileStatusChange?: (file: UploadItem) => void
 }
 
-export type TriggerProps = {
+export type TriggerNodeProps = {
   tip?: string | React.ReactNode
   multiple?: boolean
   accept?: string

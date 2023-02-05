@@ -9,7 +9,7 @@ import React, {
 } from "react"
 import { Button } from "@illa-design/button"
 import { UploadIcon, PlusIcon } from "@illa-design/icon"
-import { TriggerProps } from "./interface"
+import { TriggerNodeProps } from "./interface"
 import {
   ConfigProviderContext,
   ConfigProviderProps,
@@ -29,7 +29,7 @@ import {
   pictureCardTextStyle,
 } from "./style"
 
-const TriggerNode = (props: PropsWithChildren<TriggerProps>) => {
+const TriggerNode = (props: PropsWithChildren<TriggerNodeProps>) => {
   const { locale } = useContext<ConfigProviderProps>(ConfigProviderContext)
   const [isDragging, setIsDragging] = useState(false)
   const [dragEnterCount, setDragEnterCount] = useState(0) // the number of times ondragenter was triggered
