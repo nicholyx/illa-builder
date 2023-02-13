@@ -45,19 +45,25 @@ export const getFileString = (file: UploadItem) =>
 
 export const toBase64 = (file: UploadItem) =>
   new Promise((resolve, reject) => {
+    if (!file) {
+      resolve(undefined)
+    }
     const reader = new FileReader()
     if (file.originFile) {
       reader.onload = () => resolve(reader.result)
       reader.onerror = (error) => reject(error)
       reader.readAsDataURL(file.originFile)
     } else {
-      resolve("")
+      resolve(undefined)
     }
   })
 
 type ValueType = Array<{ status: string; value: any }>
 
-export const getFilteredValue = (values: ValueType = [], type?: string) => {
+export const getFilteredValue = (values?: ValueType, type?: string) => {
+  if (!values) {
+    return
+  }
   const filteredValue = values.filter(
     (data) => data.value !== undefined && data.status === "fulfilled",
   )
