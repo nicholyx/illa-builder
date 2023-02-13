@@ -17,8 +17,6 @@ import {
 import { ConfigElementProps } from "@/page/App/components/Actions/interface"
 import { optionLabelStyle } from "@/page/App/components/Actions/styles"
 import { ControlledElement } from "@/page/App/components/ControlledElement"
-import { MicrosoftSqlResource } from "@/redux/resource/microsoftSqlResource"
-import { Resource, generateSSLConfig } from "@/redux/resource/resourceState"
 import {
   AuthenticationOptions,
   SnowflakeAuthenticationSelectType,
@@ -40,12 +38,11 @@ export const SnowflakeConfigElement: FC<ConfigElementProps> = (props) => {
     shouldUnregister: true,
   })
   const resource = useSelector((state: RootState) => {
-    return state.resource.find(
-      (r) => r.resourceId === resourceId,
-    ) as Resource<SnowflakeType>
+    return state.resource.find((r) => r.resourceId === resourceId)
   })
 
-  const content = resource?.content ?? snowflakeResourceInitial
+  const content = (resource?.content ??
+    snowflakeResourceInitial) as SnowflakeType
 
   const [testLoading, setTestLoading] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -120,7 +117,7 @@ export const SnowflakeConfigElement: FC<ConfigElementProps> = (props) => {
         <ControlledElement
           controlledType="input"
           isRequired
-          title={"Account Identifier"}
+          title={t("editor.action.resource.db.label.account_name")}
           control={control}
           defaultValue={content.accountName}
           rules={[
@@ -128,13 +125,15 @@ export const SnowflakeConfigElement: FC<ConfigElementProps> = (props) => {
               required: true,
             },
           ]}
-          placeholders={["xy12345.us-east-2.aws"]}
+          placeholders={[
+            t("editor.action.resource.db.placeholder.account_name"),
+          ]}
           name="accountName"
         />
         <ControlledElement
           controlledType="input"
           isRequired
-          title={"Warehouse"}
+          title={t("editor.action.resource.db.label.warehouse")}
           control={control}
           defaultValue={content.warehouse}
           rules={[
@@ -142,11 +141,11 @@ export const SnowflakeConfigElement: FC<ConfigElementProps> = (props) => {
               required: true,
             },
           ]}
-          placeholders={["COMPUTE_WH"]}
+          placeholders={[t("editor.action.resource.db.placeholder.warehouse")]}
           name="warehouse"
         />
         <ControlledElement
-          controlledType={["input"]}
+          controlledType="input"
           isRequired
           title={t("editor.action.resource.db.label.database")}
           control={control}
@@ -156,28 +155,30 @@ export const SnowflakeConfigElement: FC<ConfigElementProps> = (props) => {
               required: true,
             },
           ]}
-          placeholders={["SNOWFLAKE_SAMPLE_DATA"]}
+          placeholders={[
+            t("editor.action.resource.db.placeholder.snowflake_database"),
+          ]}
           name="database"
         />
         <ControlledElement
-          controlledType={["input"]}
-          title={"Schema"}
+          controlledType="input"
+          title={t("editor.action.resource.db.label.schema")}
           control={control}
           defaultValue={content.schema}
-          placeholders={["PUBLIC"]}
+          placeholders={[t("editor.action.resource.db.placeholder.schema")]}
           name="schema"
         />
         <ControlledElement
-          controlledType={["input"]}
-          title={"Role"}
+          controlledType="input"
+          title={t("editor.action.resource.db.label.role")}
           control={control}
           defaultValue={content.role}
-          placeholders={["PUBLIC"]}
+          placeholders={[t("editor.action.resource.db.placeholder.schema")]}
           name="role"
         />
 
         <ControlledElement
-          controlledType={["select"]}
+          controlledType="select"
           control={control}
           isRequired
           rules={[
@@ -185,8 +186,8 @@ export const SnowflakeConfigElement: FC<ConfigElementProps> = (props) => {
               required: true,
             },
           ]}
-          title={"Authentication"}
-          name={"authentication"}
+          title={t("editor.action.resource.restapi.label.authentication")}
+          name="authentication"
           defaultValue={content.authentication}
           options={AuthenticationOptions}
           onValueChange={(value) =>
